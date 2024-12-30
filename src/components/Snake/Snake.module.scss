@@ -1,0 +1,21 @@
+// .snakeDot {
+//     background-color: rgb(255, 0, 0);
+//     // background-image: url("../../dio.jpg");
+//     position: absolute;
+//     width: 10px;
+//     height: 10px;
+//     border: 1px solid rgb(255, 255, 255);
+//     z-index: 2;
+// }
+
+.snakeDot {
+    position: absolute;
+    background-image: url(../../../public/jojo/jonathan.png);
+    width: 30px; // Ajuste selon la taille souhaitée
+    height: 40px;
+    border: none; // Supprime la bordure, sauf si tu veux la conserver
+    z-index: 2;
+    background-size: cover; // Assure que l'image remplit l'espace
+    background-position: center; // Centre l'image
+    background-repeat: no-repeat; // Empêche la répétition
+}

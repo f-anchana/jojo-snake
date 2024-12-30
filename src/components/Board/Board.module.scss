@@ -1,0 +1,55 @@
+.board{
+    background-color: white;
+    // background-image: url(../../../public/jojo/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    .score{
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .death {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        color: white;
+      }
+
+    .pause{
+        position: fixed;
+        bottom: 12px;
+        left: 12px;
+        background-color: white;
+        padding: 24px;
+        cursor: pointer;
+    }
+
+    &.neon {
+        background-color: #222; /* Fond légèrement plus sombre quand l'effet néon est activé */
+        box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.7), 
+                    0 0 40px 10px rgba(0, 255, 255, 0.6), 
+                    0 0 60px 15px rgba(0, 255, 255, 0.5);
+        animation: neonPulse 1.5s infinite alternate;
+    }
+
+    /* Animation de clignotement néon */
+    @keyframes neonPulse {
+        0% {
+            box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.7), 0 0 40px 10px rgba(0, 255, 255, 0.6), 0 0 60px 15px rgba(0, 255, 255, 0.5);
+        }
+        100% {
+            box-shadow: 0 0 50px 10px rgba(0, 255, 255, 1), 0 0 100px 20px rgba(0, 255, 255, 0.8), 0 0 150px 30px rgba(0, 255, 255, 0.6);
+        }
+    }
+
+}
