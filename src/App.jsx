@@ -27,7 +27,8 @@ function App() {
 
   return (
     <div>
-        <video src="/audio/you-died.mp4" id="die-video" className="die-video"></video>
+        <video src="/audio/roadrollerda.mp4" id="die-video" className="die-video"></video>
+        {/* <video src="/audio/wryyyy.mp3" id="die-video" className="die-video"></video> */}
 
       <video
         src="/audio/ZAWARUDO.mp4"

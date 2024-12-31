@@ -25,6 +25,10 @@ export const netherPortal = () => {
   // Écoute la fin de la vidéo
   video.addEventListener("ended", () => {
     video.style.display = "none";
+    setTimeout(() => {
+      const audio = new Audio("/audio/zawarudoresume.mp3");
+      audio.play(); // Joue le son      
+}, 1000);
   });
 };
 

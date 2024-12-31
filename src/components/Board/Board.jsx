@@ -25,7 +25,7 @@ const Board = () => {
     //state, variable où on stocke des données avec getter (variable initiale) et setter (variable modifiée), ex test, setTest
     const [snakeData, setsnakeData] = useState([
         [0, 0],
-        [10, 0],
+        // [10, 0],
     ]); 
 
 const [foodArray, setFoodArray] = useState([]); //on initialise la position de la nourriture
@@ -33,6 +33,8 @@ const [trapArray, setTrapArray] = useState([]); //on initialise la position de l
 const [hasEnteredResults, setHasEnteredResults] = useState(false);
 
 const [neonEffect, setNeonEffect] = useState(false); // Etat pour l'effet néon
+const [jojoImagesMangé, setJojoImagesMangé] = useState(false); // Etat pour l'image mangé
+
 
 
 const [gameOver, setGameOver] = useState(false); //on initialise le game over à false
@@ -66,16 +68,15 @@ const gameIsOver = () => {
     setGameOver(true);
 };
 
-const isOutofBorder = (head) => {
-        // const head = snakeData[snakeData.length - 1]; //on récupère la dernière valeur du tableau
-        // console.log(head);
-        if(head[0]>= 500 || head[1] >= 500 || head[0] < 0 || head[1] < 0) {
-            return true;
-        }else {
-            return false;
-        }; 
-        // si la tête du snake est en dehors du cadre, on retourne true (game over), sinon false
-        
+
+    const isOutofBorder = (head) => {
+        if (head[0] >= 500 || head[1] >= 500 || head[0] < 0 || head[1] < 0) {
+        return true;
+        } else {
+        return false;
+        }
+                // si la tête du snake est en dehors du cadre, on retourne true (game over), sinon false
+
     };
 
     const hasEatenItem = ({getter, setter}) => {
@@ -90,6 +91,7 @@ const isOutofBorder = (head) => {
             //mettre à jour le tableau des food disponible
             const newItemArray = getter.filter((_item) => _item !== item); //on filtre le tableau foodArray pour enlever la nourriture qui a été mangée
 
+
             // console.log(newFoodArray);
             
             setter(newItemArray); //on met à jour le state foodArray avec le nouveau tableau
@@ -97,8 +99,6 @@ const isOutofBorder = (head) => {
         }else {
             return false;
         }
-        
-
     };
         
 
@@ -149,26 +149,6 @@ const isOutofBorder = (head) => {
             setter: setTrapArray,
         }); //on appelle la fonction hasEatenItem
 
-
-        // const handleNetherPortalEffect = (newSnakeData) => {
-        //     console.log("Effet Nether Portal activé. Mise en pause du jeu.");
-        //     setNeonEffect(true); // Applique l'effet néon
-            
-        //     const video = document.getElementById("nether-video");
-        //     video.style.display = "block"; // Affiche la vidéo
-        //     video.play(); // Joue la vidéo
-        //     setGameIsPaused(true); // Met le jeu en pause
-            
-        //     video.onended = () => {        
-        //         // Attendre 1000ms après la vidéo avant de reprendre le jeu
-        //         setTimeout(() => {
-        //             const audio = new Audio("/audio/zawarudoresume.mp3"); // Remplace avec ton fichier audio
-        //             audio.play(); // Joue le son
-        //             setNeonEffect(false); // Retire l'effet néon
-        //             setGameIsPaused(false); // Relance le jeu
-        //         }, 1000); // Attendre 1000ms pour laisser le temps à l'audio de se jouer
-        //     };
-        // };
         
         const handleNetherPortalEffect = (newSnakeData) => {
             console.log("Effet Nether Portal activé. Mise en pause du jeu.");
@@ -206,7 +186,7 @@ const isOutofBorder = (head) => {
         
                 selectedEffect();
 
-                if(selectedEffect === netherPortal){
+                if (selectedEffect === netherPortal) {
                     handleNetherPortalEffect(newSnakeData);
                 }
 
@@ -284,9 +264,7 @@ const isOutofBorder = (head) => {
     }
 
     const gameLoop = (time, deltaTime, frame) => {
-        // if (gameIsPaused) {
-        //     return; // met le jeu en pause
-        // }    
+
         
         // console.log(time, deltaTime, frame);
         timer.current += deltaTime * 0.001;
