@@ -10,7 +10,8 @@ generateRandomCoordinates,
 triggerMode,
 reversedControls,
 wizz,
-netherPortal,
+TimeStop,
+Arrivederci,
 } from "../../utils/utils";
 import useStore from '../../utils/store';
 import Submit from '../Submit/Submit';
@@ -81,25 +82,26 @@ const gameIsOver = () => {
 
     const hasEatenItem = ({getter, setter}) => {
         const head = snakeData[snakeData.length - 1];
-        // console.log(head);
+    
+        //_item est une variable temporaire, on peut l'appeler comme on veut, i est l'index
+        const item = getter.find((_item) => _item.x === head[0] && _item.y === head[1]);
+    
+        if (item) {
+            // Loguer l'ID de la nourriture mangée
+            console.log("Snake ate food with ID:", item.id);
 
-        //comparer les coordonnées de la tête du snake avec les coordonnées de la nourriture
-       const item = getter.find((_item, i) =>  _item.x === head[0] && _item.y === head[1]); //_food est une variable temporaire, on peut l'appeler comme on veut, i est l'index
-
-        if(item){
-            //s'il y a match, on retourne true, sinon false
+             //s'il y a match, on retourne true, sinon false
             //mettre à jour le tableau des food disponible
-            const newItemArray = getter.filter((_item) => _item !== item); //on filtre le tableau foodArray pour enlever la nourriture qui a été mangée
-
-
-            // console.log(newFoodArray);
-            
-            setter(newItemArray); //on met à jour le state foodArray avec le nouveau tableau
+    
+            // Retirer cet élément de la nourriture du tableau
+            const newItemArray = getter.filter((_item) => _item !== item);
+            setter(newItemArray);//on met à jour le state foodArray avec le nouveau tableau
             return true;
         }else {
             return false;
         }
     };
+    
         
 
     const Movesnake = () => {
@@ -150,20 +152,19 @@ const gameIsOver = () => {
         }); //on appelle la fonction hasEatenItem
 
         
-        const handleNetherPortalEffect = (newSnakeData) => {
-            console.log("Effet Nether Portal activé. Mise en pause du jeu.");
+        const TimeStopEffect = (newSnakeData) => {
             setNeonEffect(true); // Applique l'effet néon
         
             setSpeed(speed => speed * 20); //on diminue la vitesse du snake
             const video = document.getElementById("nether-video");
-            video.style.display = "block"; // Affiche la vidéo
-            video.play(); // Joue la vidéo
+            video.style.display = "block";
+            video.play();
             
             video.onended = () => {
                 setTimeout(() => {
                     const audio = new Audio("/audio/zawarudoresume.mp3");
-                    audio.play(); // Joue le son
-                    setNeonEffect(false); // Retire l'effet néon
+                    audio.play();
+                    setNeonEffect(false);
                     //on remet la vitesse initiale
                     setSpeed(speed => speed / 20);
                 }, 1000);
@@ -179,17 +180,42 @@ const gameIsOver = () => {
 
             if (snakeAteTrap === true) {
                 // trap execution logic
-                // const effects = [flashUser, triggerMode, wizz, netherPortal];
-                const effects = [netherPortal];
+                const effects = [flashUser, triggerMode, wizz, TimeStop, Arrivederci];
+                // const effects = [Arrivederci];
         
                 const selectedEffect =
                   effects[Math.floor(Math.random() * effects.length)];
         
                 selectedEffect();
 
-                if (selectedEffect === netherPortal) {
-                    handleNetherPortalEffect(newSnakeData);
+                if (selectedEffect === TimeStop) {
+                    TimeStopEffect(newSnakeData);
                 }
+
+// Si c'est l'effet Arrivederci, on réduit le snake de 2 blocs sans toucher à la tête
+if (selectedEffect === Arrivederci) {
+    setSpeed(speed => speed * 20); //on diminue la vitesse du snake
+    const video = document.getElementById("ariari");
+    video.style.display = "block";
+    video.play();
+
+    video.onended = () => {
+        setTimeout(() => {
+            //on remet la vitesse initiale
+            setSpeed(speed => speed / 20);
+        }, 500);
+    };
+    if (newSnakeData.length > 2) {
+        // Supprime 2 blocs à partir de l'index 1 (ne touche pas à la tête)
+        newSnakeData.splice(1, 2);
+    } else if (newSnakeData.length > 1) {
+        // Si le serpent a exactement 2 blocs, on ne peut en supprimer qu'un
+        newSnakeData.splice(1, 1);
+    }
+    // Met à jour le snakeData avec la nouvelle structure
+    setsnakeData(newSnakeData);
+}
+
 
                 //on réduit le serpent d'un bloc
                 if (newSnakeData.length > 1) {

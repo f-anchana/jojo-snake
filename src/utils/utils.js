@@ -15,7 +15,7 @@ let flashTween = null;
 //   }, 3000);
 // };
 
-export const netherPortal = () => {
+export const TimeStop = () => {
   const video = document.getElementById("nether-video");
   video.style.display = "block";
 
@@ -32,6 +32,18 @@ export const netherPortal = () => {
   });
 };
 
+export const Arrivederci = () => {
+  const video = document.getElementById("ariari");
+  video.style.display = "block";
+
+  // Joue la vidéo
+  video.play();
+
+  // Écoute la fin de la vidéo
+  video.addEventListener("ended", () => {
+    video.style.display = "none";
+  });
+}
 
 // window.location.href = "https://google.com";
 

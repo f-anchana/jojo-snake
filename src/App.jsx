@@ -35,8 +35,13 @@ function App() {
         id="nether-video"
         className="nether-video"
         autoPlay
-        // loop
-        // muted
+      ></video>
+
+      <video
+        src="/audio/Arrivederci.mp4"
+        id="ariari"
+        className="ariari"
+        autoPlay
       ></video>
 
       <div {...getRootProps({ className: "dropzone" })}>
