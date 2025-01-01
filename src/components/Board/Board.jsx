@@ -80,25 +80,26 @@ const gameIsOver = () => {
     };
 
     const hasEatenItem = ({getter, setter}) => {
-        const head = snakeData[snakeData.length - 1];  // On récupère la tête du serpent
-    
-        // Vérifier si la tête du serpent entre en collision avec un élément de la nourriture
-        const item = getter.find((_item) => _item.x === head[0] && _item.y === head[1]);
-    
-        if (item) {
-            // Loguer l'ID de la nourriture mangée
-            console.log("Snake ate food with ID:", item.id);
-    
-            // Retirer cet élément de la nourriture du tableau
-            const newItemArray = getter.filter((_item) => _item !== item);
-            setter(newItemArray); // Mise à jour du state foodArray
-    
-            return true;  // Indiquer que la nourriture a été mangée
-        } else {
+        const head = snakeData[snakeData.length - 1];
+        // console.log(head);
+
+        //comparer les coordonnées de la tête du snake avec les coordonnées de la nourriture
+       const item = getter.find((_item, i) =>  _item.x === head[0] && _item.y === head[1]); //_food est une variable temporaire, on peut l'appeler comme on veut, i est l'index
+
+        if(item){
+            //s'il y a match, on retourne true, sinon false
+            //mettre à jour le tableau des food disponible
+            const newItemArray = getter.filter((_item) => _item !== item); //on filtre le tableau foodArray pour enlever la nourriture qui a été mangée
+
+
+            // console.log(newFoodArray);
+            
+            setter(newItemArray); //on met à jour le state foodArray avec le nouveau tableau
+            return true;
+        }else {
             return false;
         }
     };
-    
         
 
     const Movesnake = () => {
