@@ -50,6 +50,13 @@ function App() {
         autoPlay
       ></video>
 
+      <video
+        src="/audio/ohmygood.mp4"
+        id="omg"
+        className="omg"
+        autoPlay
+      ></video>
+
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         {skin && <img src={skin} alt="" />}

@@ -15,6 +15,16 @@ let flashTween = null;
 //   }, 3000);
 // };
 
+export const Ohmygod = () => {
+  const video = document.getElementById("omg");
+  video.style.display = "block";
+  video.play();
+
+  video.addEventListener("ended", () => {
+    video.style.display = "none";
+  }
+  )};
+
 export const TimeStop = () => {
   const video = document.getElementById("nether-video");
   video.style.display = "block";
@@ -83,14 +93,14 @@ export const triggerMode = () => {
   }, 1000);
 };
 
-export const wizz = () => {
-  gsap.to("#board", {
-    duration: 0.05,
-    x: "+=30%",
-    yoyo: true,
-    repeat: 9,
-  });
-};
+// export const wizz = () => {
+//   gsap.to("#board", {
+//     duration: 0.05,
+//     x: "+=30%",
+//     yoyo: true,
+//     repeat: 9,
+//   });
+// };
 
 export const reversedControls = (e, direction) => {
   switch (e.keyCode) {

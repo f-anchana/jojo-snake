@@ -9,15 +9,16 @@ flashUser,
 generateRandomCoordinates,
 triggerMode,
 reversedControls,
-wizz,
 TimeStop,
 Arrivederci,
 Muda,
+Ohmygod,
 } from "../../utils/utils";
 import useStore from '../../utils/store';
 import Submit from '../Submit/Submit';
 import GameOver from '../GameOver/GameOver';
 import Scoreboard from '../Scoreboard/Scoreboard';
+import { arrayBuffer } from 'three/tsl';
 
 
 // const MAXIMUM_FOOD_AVAILABLE = 3; //on limite le nombre de nourriture à 3 (on peut le dynamiser pour mettre un nombre aléatoire par exemple)
@@ -134,7 +135,6 @@ const gameIsOver = () => {
             }
 
             //mise à jour du state snakeData
-
         newSnakeData.push(head); //on ajoute la nouvelle tête du snake
         newSnakeData.shift(); //on supprime la queue du snake et pour mettre à jour le snakeData (parce qu'il y a que 2 éléments dans le tableau), donc on le déplace
 
@@ -174,17 +174,27 @@ const gameIsOver = () => {
         if (OutofBorder || snakeCollapsed) {
             gameIsOver();
         }else {
-            // setsnakeData(newSnakeData); //on met à jour le snakeData avec le nouveau tableau
-
             if (snakeAteTrap === true) {
                 // trap execution logic
-                // const effects = [flashUser, triggerMode, wizz, TimeStop, Arrivederci, Muda];
-                const effects = [Muda];
+                // const effects = [flashUser, triggerMode, TimeStop, Arrivederci, Muda, Ohmygod];
+                const effects = [Ohmygod];
         
                 const selectedEffect =
                   effects[Math.floor(Math.random() * effects.length)];
         
                 selectedEffect();
+
+                if (selectedEffect === Ohmygod) {
+                    const video = document.getElementById("omg");
+                    video.style.display = "block";
+                    video.play();
+                    setSpeed(speed => speed * 20);
+
+                    video.onended = () => {
+                        setTimeout(() => {
+                            setSpeed(speed => speed / 20);
+                        }, 100);
+                    }}; 
 
                 if (selectedEffect === TimeStop) {
                     TimeStopEffect(newSnakeData);
@@ -201,13 +211,13 @@ const gameIsOver = () => {
                         setTimeout(() => {
                             //on remet la vitesse initiale
                             setSpeed(speed => speed / 20);
-                        }, 300);
+                        }, 100);
                     };
                     if (newSnakeData.length > 2) {
                         // Supprime 2 blocs à partir de l'index 1 (ne touche pas à la tête)
                         newSnakeData.splice(1, 2);
                     } else if (newSnakeData.length > 1) {
-                        // Si le serpent a 2 blocs, on n'en supprimer qu'un
+                        // Si le serpent a 2 blocs, on n'en supprime qu'un
                         newSnakeData.splice(1, 1);
                     }
                     setsnakeData(newSnakeData);
@@ -235,15 +245,11 @@ const gameIsOver = () => {
                     setsnakeData(newSnakeData);
                 }
                 
-
                 //on réduit le serpent d'un bloc
                 if (newSnakeData.length > 1) {
                     newSnakeData.pop();
                     setsnakeData(newSnakeData);
                 }
-        
-                // console.log(selectedEffect);
-                // flashUser();
             
             }
 
@@ -318,9 +324,8 @@ const gameIsOver = () => {
         foodTimer.current += deltaTime * 0.001; //on multiplie par 0.001 pour convertir en secondes
         Traptimer.current += deltaTime * 0.001; //on multiplie par 0.001 pour convertir en secondes
 
-
         //ici, gestion de l'apparition de la nourriture
-        if (foodTimer.current > 2 && foodArray.length < 3) { //on limite le nombre de nourriture à 10
+        if (foodTimer.current > 2 && foodArray.length < 10) { //on limite le nombre de nourriture à 10
             // console.log('create food');
             foodTimer.current = 0;
             addItem({
@@ -328,9 +333,8 @@ const gameIsOver = () => {
                 setter: setFoodArray,
             });
         }
-
         //ici, gestion de l'apparition de la nourriture piégée
-        if (Traptimer.current > 3 && trapArray.length < 3) { //on limite le nombre de nourriture à 10
+        if (Traptimer.current > 3 && trapArray.length < 11) { //on limite le nombre de nourriture à 10
             // console.log('create food');
             Traptimer.current = 0;
             addItem({
@@ -348,7 +352,6 @@ const gameIsOver = () => {
     };
 
     const replay = () => {
-
         
         //replay game
         removeMode("corner");
