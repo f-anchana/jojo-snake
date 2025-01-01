@@ -60,12 +60,8 @@ const gameIsOver = () => {
 
     setDeath(death + 1);
 
-    const video = document.getElementById("die-video");
-    video.style.display = "block";
-
-    video.currentTime = 0;
-    video.play();
-
+    const audio = document.getElementById("die-audio");
+    audio.play();
     setGameOver(true);
 };
 
@@ -335,9 +331,8 @@ if (selectedEffect === Arrivederci) {
         removeMode("impossible");
         removeMode("reversed");
 
-        const video = document.getElementById("die-video");
-        video.style.display = "none";
-        video.pause();
+        const audio = document.getElementById("die-audio");
+        audio.pause();
 
         setGameOver(false);
         setHasEnteredResults(false);
@@ -354,7 +349,7 @@ if (selectedEffect === Arrivederci) {
         //reset snake
         setsnakeData([
             [0, 0],
-            [10, 0],
+            // [10, 0],
         ]);
 
         //reset direction
