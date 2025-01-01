@@ -45,6 +45,16 @@ export const Arrivederci = () => {
   });
 }
 
+export const Muda = () => {
+  const video = document.getElementById("muda");
+  video.style.display = "block";
+  video.play();
+
+  video.addEventListener("ended", () => {
+    video.style.display = "none";
+  }
+  )};
+
 // window.location.href = "https://google.com";
 
 export const flashUser = () => {

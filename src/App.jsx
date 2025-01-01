@@ -43,6 +43,13 @@ function App() {
         autoPlay
       ></video>
 
+      <video
+        src="/audio/7pagemuda.mp4"
+        id="muda"
+        className="muda"
+        autoPlay
+      ></video>
+
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         {skin && <img src={skin} alt="" />}

@@ -12,6 +12,7 @@ reversedControls,
 wizz,
 TimeStop,
 Arrivederci,
+Muda,
 } from "../../utils/utils";
 import useStore from '../../utils/store';
 import Submit from '../Submit/Submit';
@@ -34,8 +35,7 @@ const [trapArray, setTrapArray] = useState([]); //on initialise la position de l
 const [hasEnteredResults, setHasEnteredResults] = useState(false);
 
 const [neonEffect, setNeonEffect] = useState(false); // Etat pour l'effet néon
-const [jojoImagesMangé, setJojoImagesMangé] = useState(false); // Etat pour l'image mangé
-
+const [gamePaused, setGamePaused] = useState(false); //on initialise le jeu en pause à false
 
 
 const [gameOver, setGameOver] = useState(false); //on initialise le game over à false
@@ -59,6 +59,8 @@ const gameIsOver = () => {
     gsap.ticker.remove(gameLoop);
 
     setDeath(death + 1);
+    //on pause le jeu
+    setGamePaused(true);
 
     const audio = document.getElementById("die-audio");
     audio.play();
@@ -176,8 +178,8 @@ const gameIsOver = () => {
 
             if (snakeAteTrap === true) {
                 // trap execution logic
-                const effects = [flashUser, triggerMode, wizz, TimeStop, Arrivederci];
-                // const effects = [Arrivederci];
+                // const effects = [flashUser, triggerMode, wizz, TimeStop, Arrivederci, Muda];
+                const effects = [Muda];
         
                 const selectedEffect =
                   effects[Math.floor(Math.random() * effects.length)];
@@ -188,30 +190,51 @@ const gameIsOver = () => {
                     TimeStopEffect(newSnakeData);
                 }
 
-// Si c'est l'effet Arrivederci, on réduit le snake de 2 blocs sans toucher à la tête
-if (selectedEffect === Arrivederci) {
-    setSpeed(speed => speed * 20); //on diminue la vitesse du snake
-    const video = document.getElementById("ariari");
-    video.style.display = "block";
-    video.play();
+                // Si c'est l'effet Arrivederci, on réduit le snake de 2 blocs sans toucher à la tête
+                if (selectedEffect === Arrivederci) {
+                    setSpeed(speed => speed * 20); //on diminue la vitesse du snake
+                    const video = document.getElementById("ariari");
+                    video.style.display = "block";
+                    video.play();
 
-    video.onended = () => {
-        setTimeout(() => {
-            //on remet la vitesse initiale
-            setSpeed(speed => speed / 20);
-        }, 500);
-    };
-    if (newSnakeData.length > 2) {
-        // Supprime 2 blocs à partir de l'index 1 (ne touche pas à la tête)
-        newSnakeData.splice(1, 2);
-    } else if (newSnakeData.length > 1) {
-        // Si le serpent a exactement 2 blocs, on ne peut en supprimer qu'un
-        newSnakeData.splice(1, 1);
-    }
-    // Met à jour le snakeData avec la nouvelle structure
-    setsnakeData(newSnakeData);
-}
+                    video.onended = () => {
+                        setTimeout(() => {
+                            //on remet la vitesse initiale
+                            setSpeed(speed => speed / 20);
+                        }, 300);
+                    };
+                    if (newSnakeData.length > 2) {
+                        // Supprime 2 blocs à partir de l'index 1 (ne touche pas à la tête)
+                        newSnakeData.splice(1, 2);
+                    } else if (newSnakeData.length > 1) {
+                        // Si le serpent a 2 blocs, on n'en supprimer qu'un
+                        newSnakeData.splice(1, 1);
+                    }
+                    setsnakeData(newSnakeData);
+                }
 
+                if (selectedEffect === Muda) {
+                    setSpeed(speed => speed * 20);
+                    const video = document.getElementById("muda");
+                    video.style.display = "block";
+                    video.play();
+
+                    video.onended = () => {
+                        setTimeout(() => {
+                            setSpeed(speed => speed / 20);
+                        }, 500);
+                    };
+                
+                    if (newSnakeData.length > 5) {
+                        // Supprime 5 blocs à partir de l'index 1 (ne touche pas à la tête)
+                        newSnakeData.splice(1, 5);
+                    } else if (newSnakeData.length > 1) {
+                        // Si le serpent a moins de 5 blocs, supprime tout sauf la tête
+                        newSnakeData.splice(1, newSnakeData.length - 1);
+                    }
+                    setsnakeData(newSnakeData);
+                }
+                
 
                 //on réduit le serpent d'un bloc
                 if (newSnakeData.length > 1) {
@@ -288,6 +311,7 @@ if (selectedEffect === Arrivederci) {
 
     const gameLoop = (time, deltaTime, frame) => {
 
+        if (gamePaused) return;
         
         // console.log(time, deltaTime, frame);
         timer.current += deltaTime * 0.001;
@@ -335,6 +359,7 @@ if (selectedEffect === Arrivederci) {
         audio.pause();
 
         setGameOver(false);
+        setGamePaused(false);
         setHasEnteredResults(false);
         //reset score
         setScore(0);
