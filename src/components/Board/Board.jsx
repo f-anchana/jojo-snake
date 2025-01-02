@@ -18,7 +18,6 @@ import useStore from '../../utils/store';
 import Submit from '../Submit/Submit';
 import GameOver from '../GameOver/GameOver';
 import Scoreboard from '../Scoreboard/Scoreboard';
-import { arrayBuffer } from 'three/tsl';
 
 
 // const MAXIMUM_FOOD_AVAILABLE = 3; //on limite le nombre de nourriture à 3 (on peut le dynamiser pour mettre un nombre aléatoire par exemple)
@@ -176,6 +175,8 @@ const gameIsOver = () => {
         }else {
             if (snakeAteTrap === true) {
                 // trap execution logic
+                //on réduit le score
+                setScore(score - 10);
                 // const effects = [flashUser, triggerMode, TimeStop, Arrivederci, Muda, Ohmygod];
                 const effects = [Ohmygod];
         

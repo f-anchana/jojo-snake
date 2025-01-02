@@ -55,6 +55,7 @@ function App() {
         id="omg"
         className="omg"
         autoPlay
+        muted
       ></video>
 
       <div {...getRootProps({ className: "dropzone" })}>

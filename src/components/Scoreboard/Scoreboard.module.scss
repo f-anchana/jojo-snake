@@ -1,25 +1,84 @@
 .scoreboard {
-    position: absolute;
-    z-index: 100;
-    // left: 10%;
-    // top: 15%;
-    // width: 100%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  height: 100vh;
+  // background-image: url('../../../public/jojo/backblack.jpg');
+  // background-size: cover;
+  z-index: 999;
+  // background-repeat: no-repeat;
+  background-color: black;
+  color: white;
+}
+
+.card {
+  position: relative;
+  z-index: 10;
+  width: 70%;
+  max-width: 900px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 1); 
+  border: 3px solid #d4af37;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../public/jojo/jonathanscore.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+
+.header h1 {
+  margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffd700; // Couleur dorée
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tableHeader,
+.result {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1); // Semi-transparent pour le contenu
+  border-radius: 8px;
+}
+
+.tableHeader {
+  font-weight: bold;
+  color: #ffd700;
+  border: 2px solid #d4af37;
+}
+
+.result {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  span {
+    flex: 1;
+    text-align: center;
     color: white;
-    // background-color: black;
   }
-  
-  .header {
-    span {
-      font-weight: bold;
-      font-size: 20px;
-    }
-  }
-  .header,
-  .result {
-    display: flex;
-    gap: 50px;
-  
-    span {
-      width: 100px;
-    }
-  }
+}
+
+.result:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
