@@ -177,8 +177,8 @@ const gameIsOver = () => {
                 // trap execution logic
                 //on réduit le score
                 setScore(score - 10);
-                // const effects = [flashUser, triggerMode, TimeStop, Arrivederci, Muda, Ohmygod];
-                const effects = [Ohmygod];
+                const effects = [flashUser, triggerMode, TimeStop, Arrivederci, Muda, Ohmygod];
+                // const effects = [Ohmygod];
         
                 const selectedEffect =
                   effects[Math.floor(Math.random() * effects.length)];

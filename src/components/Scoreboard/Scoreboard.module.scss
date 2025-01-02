@@ -3,10 +3,7 @@
   justify-content: center;
   // align-items: center;
   height: 100vh;
-  // background-image: url('../../../public/jojo/backblack.jpg');
-  // background-size: cover;
   z-index: 999;
-  // background-repeat: no-repeat;
   background-color: black;
   color: white;
 }
@@ -60,7 +57,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.1); // Semi-transparent pour le contenu
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
 }
 
